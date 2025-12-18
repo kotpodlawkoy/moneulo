@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CellController : MonoBehaviour
+public abstract class CellController : MonoBehaviour
 {
     [SerializeField] private GameObject meatPrefab;
     [SerializeField] private int meatAmount;
