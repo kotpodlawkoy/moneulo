@@ -2,6 +2,12 @@
 
 Это проект 2D симуляции/игры, которая по своей сути напоминает этап клетки в игре Spore
 
+# Использованные технологии
+* Unity Editor v6000.2.11f1
+* Vim 9.1 с зависимостями:
+  * OmniSharp LSP server
+  * Unity tool [kotpodlawkoy sln generator](https://github.com/kotpodlawkoy/kotpodlawkoy.sln.csproj.generator)
+
 # Основная суть
 
 На процедурно генерируемой карте спавнятся определённое количество плотоядных молекул под управлением модели многослойного перцептрона
