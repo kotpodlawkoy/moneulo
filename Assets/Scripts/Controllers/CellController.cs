@@ -5,6 +5,7 @@ public abstract class CellController : MonoBehaviour
     [SerializeField] private GameObject meatPrefab;
     [SerializeField] private int meatAmount;
 
+    [SerializeField] private float _age = 0f;
     private IHealth _health;
     private IEnergy _energy;
     private ILiving _living;
@@ -17,6 +18,8 @@ public abstract class CellController : MonoBehaviour
 
     public IBreeder Breeder => _breeder;
     public IGrowable Growable => _growable;
+    public bool DebugLogging = false;
+    public int CellId = 0;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake ()
@@ -35,12 +38,17 @@ public abstract class CellController : MonoBehaviour
         _health.OnDeath += OnDeathHandler;
     }
 
+    void FixedUpdate ()
+    {
+        _age += Time.deltaTime;
+    }
+
     // Update is called once per frame
     void Update ()
     {
         _living.Live ();
         _statusEffects.UpdateStatusEffects ( Time.deltaTime );
-        Debug.Log ( $"{gameObject.tag}: HP = {_health.CurrentHp} | ENERGY = {_energy.CurrentEnergy}" );
+        if ( DebugLogging ) Debug.Log ( $"{gameObject.tag}: HP = {_health.CurrentHp} | ENERGY = {_energy.CurrentEnergy}" );
     }
 
     void OnCollisionEnter2D ( Collision2D col )
