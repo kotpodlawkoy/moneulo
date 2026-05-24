@@ -14,10 +14,10 @@ public class EnviromentSpawner : MonoBehaviour
 
     public static event System.Action WallsSpawned;
 
-    void Start()
+    void Start ()
     {
         StartCoroutine ( SpawnManyWalls ( xZone, yZone, wallAmount, OnWallsSpawned ) );
-        
+
     }
 
     IEnumerator SpawnWall ( GameObject wallPrefub, float x, float y )
@@ -38,11 +38,11 @@ public class EnviromentSpawner : MonoBehaviour
 
     IEnumerator SpawnManyWalls ( float x, float y, int amount, System.Action onComplete )
     {
-        for ( int i = 0; i < amount; i ++ )
+        for ( int i = 0; i < amount; i++ )
         {
             GameObject randWall = wallPrefabs [ Random.Range ( 0, wallPrefabs.Length ) ];
 
-            yield return StartCoroutine(SpawnWall(randWall, x, y));
+            yield return StartCoroutine ( SpawnWall ( randWall, x, y ));
         }
         onComplete?.Invoke ();
     }
@@ -59,7 +59,7 @@ public class EnviromentSpawner : MonoBehaviour
 
     void SpawnManyPlants ( float x, float y, int amount )
     {
-        for ( int i = 0; i < amount; i ++ )
+        for ( int i = 0; i < amount; i++ )
         {
             SpawnPlant ( x, y );
         }
@@ -72,7 +72,8 @@ public class EnviromentSpawner : MonoBehaviour
         Collider2D col = Physics2D.OverlapCircle ( new Vector2 ( pos.x, pos.y ), colSize );
         if ( col != null )
         {
-            if ( col.CompareTag ( "Wall" ) ) return false;
+            if ( col.CompareTag ( "Wall" ) )
+                return false;
         }
         Instantiate ( plantPrefab, pos, plantPrefab.transform.rotation );
         return true;
@@ -89,6 +90,6 @@ public class EnviromentSpawner : MonoBehaviour
     {
         SpawnManyPlants ( xZone, yZone, targetAmount );
         InvokeRepeating ( "SpawnPlantsLoop", loopCoolDown, loopCoolDown );
-        WallsSpawned?.Invoke();
+        WallsSpawned?.Invoke ();
     }
 }

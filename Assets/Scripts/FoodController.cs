@@ -6,7 +6,7 @@ public class FoodController : MonoBehaviour
     public float maxFoodAmount;
     public float TimeMeatToRot;
 
-    void Start()
+    void Start ()
     {
         FoodAmount = maxFoodAmount;
         if ( gameObject.tag == "Meat" )
@@ -25,14 +25,14 @@ public class FoodController : MonoBehaviour
     void RescaleFood ()
     {
         transform.localScale = Vector3.one * ( FoodAmount + maxFoodAmount ) /
-                                             ( maxFoodAmount + maxFoodAmount );
+                               ( maxFoodAmount + maxFoodAmount );
     }
 
     void Die ()
     {
         Destroy ( gameObject );
     }
-    
+
     public float FoodAmount
     {
         get

@@ -3,10 +3,10 @@ using System.Collections;
 
 public class GrowComponent : MonoBehaviour, IGrowable
 {
-    [SerializeField] private GameObject _adultCell;
-    [SerializeField] private float _growEnergyCost;
-    [SerializeField] private float _growCooldown;
-    [SerializeField] private float _energyToHealthRatio;
+    [ SerializeField ] private GameObject _adultCell;
+    [ SerializeField ] private float _growEnergyCost;
+    [ SerializeField ] private float _growCooldown;
+    [ SerializeField ] private float _energyToHealthRatio;
 
     private float _lastGrowTime;
     private IEnergy _energy;
@@ -23,13 +23,14 @@ public class GrowComponent : MonoBehaviour, IGrowable
 
     public GameObject Grow ()
     {
-        if ( !CanGrow ) return null;
-        
+        if ( !CanGrow )
+            return null;
+
         _energy.SpendEnergy ( _growEnergyCost, IEnergy.SpendMode.Forced, _health, _energyToHealthRatio );
         GameObject grownCell = Instantiate ( _adultCell, transform.position, transform.rotation );
         StartCoroutine ( TransferState ( grownCell.GetComponent < CellController > () ) );
         _lastGrowTime = Time.time;
-        GetComponent<CreatureAgent>()?.RewardGrew();
+        GetComponent<CreatureAgent>()?.RewardGrew ();
         return grownCell;
     }
 
@@ -40,7 +41,7 @@ public class GrowComponent : MonoBehaviour, IGrowable
         IHealth otherHealth = cellController.GetComponent < IHealth > ();
         IEnergy otherEnergy = cellController.GetComponent < IEnergy > ();
 
-        otherHealth.TakeDamage  ( otherHealth.MaxHp * ( 1f - _health.CurrentHp / _health.MaxHp ) );
+        otherHealth.TakeDamage ( otherHealth.MaxHp * ( 1f - _health.CurrentHp / _health.MaxHp ) );
         otherEnergy.SpendEnergy ( otherEnergy.MaxEnergy * ( 1f - _energy.CurrentEnergy / _energy.MaxEnergy ), IEnergy.SpendMode.None );
         //Debug.LogError ( $"hp = {otherHealth.CurrentHp}, energy = {otherEnergy.CurrentEnergy}!" );
 

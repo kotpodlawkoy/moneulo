@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class EnergyComponent : MonoBehaviour, IEnergy
 {
-    [SerializeField] private float _maxEnergy = 100;
+    [ SerializeField ] private float _maxEnergy = 100;
     private float _currentEnergy;
-    
+
     public float MaxEnergy => _maxEnergy;
     public float CurrentEnergy => _currentEnergy;
 
@@ -19,7 +19,8 @@ public class EnergyComponent : MonoBehaviour, IEnergy
         {
             energyAmount -= _currentEnergy;
             _currentEnergy = 0;
-            if ( spendMode == IEnergy.SpendMode.Forced ) health.TakeDamage ( energyAmount * energyToHealthRatio );
+            if ( spendMode == IEnergy.SpendMode.Forced )
+                health.TakeDamage ( energyAmount * energyToHealthRatio );
 
         }
         else

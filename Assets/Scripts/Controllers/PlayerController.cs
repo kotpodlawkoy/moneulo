@@ -3,10 +3,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Vector2 mouseLocalPos;
-    
+
     private CellController cellController;
 
-    void Start()
+    void Start ()
     {
         cellController = gameObject.GetComponent < CellController > ();
         if ( cellController == null )
@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Update()
+    void Update ()
     {
         if ( Input.GetKey ( KeyCode.W ) )
         {
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
         {
             cellController.StartRunning ();
         }
-        if ( Input.GetKeyUp( KeyCode.LeftShift ) )
+        if ( Input.GetKeyUp ( KeyCode.LeftShift ) )
         {
             cellController.StopRunning ();
         }
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         {
             cellController.Heal ();
         }
-        if ( Input.GetKeyDown ( KeyCode.B) && cellController is AdultCellController adult )
+        if ( Input.GetKeyDown ( KeyCode.B ) && cellController is AdultCellController adult )
         {
             adult.Breed ();
         }

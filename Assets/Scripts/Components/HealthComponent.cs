@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class HealthComponent : MonoBehaviour, IHealth
 {
-    [SerializeField] private float _maxHp = 100f;
-    [SerializeField] private float _healEnergyCost;
-    [SerializeField] private float _healAmount;
-    [SerializeField] private float _healCooldown;
+    [ SerializeField ] private float _maxHp = 100f;
+    [ SerializeField ] private float _healEnergyCost;
+    [ SerializeField ] private float _healAmount;
+    [ SerializeField ] private float _healCooldown;
 
     private float _currentHp;
     private float _lastHealTime;
@@ -36,7 +36,8 @@ public class HealthComponent : MonoBehaviour, IHealth
     public void TakeDamage ( float damage )
     {
         _currentHp -= damage;
-        GetComponent<CreatureAgent>()?.RewardTookDamage(damage, MaxHp);
-        if ( IsDead ) OnDeath?.Invoke ();
+        GetComponent<CreatureAgent>()?.RewardTookDamage ( damage, MaxHp );
+        if ( IsDead )
+            OnDeath?.Invoke ();
     }
 }

@@ -1,4 +1,4 @@
 public interface IBrain
 {
-    CreatureAction Decide();
+    CreatureAction Decide ();
 }

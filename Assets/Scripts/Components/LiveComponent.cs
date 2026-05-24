@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class LiveComponent : MonoBehaviour, ILiving
 {
-    [SerializeField] private float _liveCooldown;
-    [SerializeField] private float _liveEnergyCost;
-    [SerializeField] private float _energyToHealthRatio;
+    [ SerializeField ] private float _liveCooldown;
+    [ SerializeField ] private float _liveEnergyCost;
+    [ SerializeField ] private float _energyToHealthRatio;
 
     private IEnergy _energy;
     private IHealth _health;
@@ -22,7 +22,8 @@ public class LiveComponent : MonoBehaviour, ILiving
 
     public void Live ()
     {
-        if ( !CanLive ) return ;
+        if ( !CanLive )
+            return;
 
         _energy.SpendEnergy ( _liveEnergyCost, IEnergy.SpendMode.Forced, _health, _energyToHealthRatio );
         _lastLiveTime = Time.time;

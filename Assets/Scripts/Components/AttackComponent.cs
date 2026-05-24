@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class AttackComponent : MonoBehaviour, IAttacker
 {
-    [SerializeField] private float _attackDamage;
-    [SerializeField] private float _attackCooldown;
-    [SerializeField] private float _attackEnergyCost;
-    [SerializeField] private float _energyToHealthRatio;
-    [SerializeField] private string _victimTag;
+    [ SerializeField ] private float _attackDamage;
+    [ SerializeField ] private float _attackCooldown;
+    [ SerializeField ] private float _attackEnergyCost;
+    [ SerializeField ] private float _energyToHealthRatio;
+    [ SerializeField ] private string _victimTag;
 
     private IEnergy _energy;
     private IHealth _health;
@@ -26,11 +26,12 @@ public class AttackComponent : MonoBehaviour, IAttacker
 
     public void Attack ( GameObject target )
     {
-        if ( !CanAttack ) return ;
+        if ( !CanAttack )
+            return;
 
         target.GetComponent < HealthComponent > ().TakeDamage ( _attackDamage );
         _energy.SpendEnergy ( _attackEnergyCost, IEnergy.SpendMode.Forced, _health, _energyToHealthRatio );
         _lastAttackTime = Time.time;
-        GetComponent<CreatureAgent>()?.RewardAttackedPrey();
+        GetComponent<CreatureAgent>()?.RewardAttackedPrey ();
     }
 }

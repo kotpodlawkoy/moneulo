@@ -6,7 +6,8 @@ public class PlayerVisibilityController : BaseVisionController
 
     void OnGUI ()
     {
-        if ( !DebugShowVisibleTargets ) return;
+        if ( !DebugShowVisibleTargets )
+            return;
 
         GUIStyle labelStyle = new GUIStyle ( GUI.skin.label );
         labelStyle.fontSize = 40;

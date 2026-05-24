@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class MovementComponent : MonoBehaviour, IMoveable
 {
-    [SerializeField] private float _baseSpeed;
-    [SerializeField] private float _baseEnergyCostPerDist;
-    [SerializeField] private float _runSpeedMultiplier;
-    [SerializeField] private float _runCostMultiplier;
-    [SerializeField] private float _energyToHealthRatio;
+    [ SerializeField ] private float _baseSpeed;
+    [ SerializeField ] private float _baseEnergyCostPerDist;
+    [ SerializeField ] private float _runSpeedMultiplier;
+    [ SerializeField ] private float _runCostMultiplier;
+    [ SerializeField ] private float _energyToHealthRatio;
 
     private IEnergy _energy;
     private IHealth _health;
@@ -14,7 +14,9 @@ public class MovementComponent : MonoBehaviour, IMoveable
 
     private bool _isRunning = false;
 
-    public float Speed { get; private set; }
+    public float Speed {
+        get; private set;
+    }
     public bool IsRunning => _isRunning;
 
     void Awake ()
@@ -28,14 +30,16 @@ public class MovementComponent : MonoBehaviour, IMoveable
     {
         float speedMultiplier = _statusEffects?.GetSpeedMultiplier () ?? 1f;
         float currentSpeed = _baseSpeed * speedMultiplier;
-        if ( _isRunning ) currentSpeed *= _runSpeedMultiplier;
+        if ( _isRunning )
+            currentSpeed *= _runSpeedMultiplier;
         Speed = currentSpeed;
     }
 
     public void Move ( Vector2 direction )
     {
         float energyCost = _baseEnergyCostPerDist * Speed * Time.deltaTime;
-        if ( _isRunning ) energyCost *= _runCostMultiplier;
+        if ( _isRunning )
+            energyCost *= _runCostMultiplier;
         _energy.SpendEnergy ( energyCost, IEnergy.SpendMode.Forced, _health, _energyToHealthRatio );
 
         float rotationAngle = Vector2.SignedAngle ( Vector2.up,

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 public class SetOfStatusEffects : MonoBehaviour, IStatusEffectable
 {
-    [System.Serializable]
+    [ System.Serializable ]
     public class StatusEffect
     {
-        [SerializeField] private string _name;
-        [SerializeField] private float _duration;
-        [SerializeField] private float _timer = 0f;
-        [SerializeField] private float _multiplier;
+        [ SerializeField ] private string _name;
+        [ SerializeField ] private float _duration;
+        [ SerializeField ] private float _timer = 0f;
+        [ SerializeField ] private float _multiplier;
 
         public string Name => _name;
         public float Duration => _duration;
@@ -22,7 +22,7 @@ public class SetOfStatusEffects : MonoBehaviour, IStatusEffectable
         public void UpdateEffect ( float deltaTime ) => _timer -= deltaTime;
     }
 
-    [SerializeField] private List < StatusEffect > statusEffects = new ();
+    [ SerializeField ] private List < StatusEffect > statusEffects = new ( );
 
     public float GetSpeedMultiplier ()
     {
@@ -42,10 +42,11 @@ public class SetOfStatusEffects : MonoBehaviour, IStatusEffectable
 
     public void UpdateStatusEffects ( float deltaTime )
     {
-        for ( int i = statusEffects.Count - 1; i >= 0; i -- )
+        for ( int i = statusEffects.Count - 1; i >= 0; i-- )
         {
             statusEffects [ i ].UpdateEffect ( deltaTime );
-            if ( !statusEffects [ i ].IsActive ) statusEffects.RemoveAt ( i );
+            if ( !statusEffects [ i ].IsActive )
+                statusEffects.RemoveAt ( i );
         }
     }
 }

@@ -14,62 +14,62 @@ public class PopulationLogger : MonoBehaviour
 
     private float _timer;
     private float _elapsed;
-    private readonly StringBuilder _csv = new StringBuilder();
+    private readonly StringBuilder _csv = new StringBuilder ();
     private string _filePath;
 
-    void Start()
+    void Start ()
     {
-        _filePath = Path.Combine(Application.dataPath, "..", fileName + ".csv");
-        _filePath = Path.GetFullPath(_filePath);
+        _filePath = Path.Combine ( Application.dataPath, "..", fileName + ".csv" );
+        _filePath = Path.GetFullPath ( _filePath );
 
-        _csv.AppendLine("time,herbivores,carnivores");
+        _csv.AppendLine ( "time,herbivores,carnivores" );
 
-        Debug.Log("[PopulationLogger] Логирование начато. Файл: " + _filePath);
+        Debug.Log ( "[PopulationLogger] Логирование начато. Файл: " + _filePath );
     }
 
-    void Update()
+    void Update ()
     {
         _timer += Time.deltaTime;
         _elapsed += Time.deltaTime;
 
-        if (_timer >= sampleInterval)
+        if ( _timer >= sampleInterval )
         {
             _timer = 0f;
-            RecordSample();
+            RecordSample ();
         }
     }
 
-    void RecordSample()
+    void RecordSample ()
     {
-        int herb = GameObject.FindGameObjectsWithTag(herbivoreTag).Length;
-        int carn = GameObject.FindGameObjectsWithTag(carnivoreTag).Length;
+        int herb = GameObject.FindGameObjectsWithTag ( herbivoreTag ).Length;
+        int carn = GameObject.FindGameObjectsWithTag ( carnivoreTag ).Length;
 
-        string line = string.Format(
+        string line = string.Format (
             System.Globalization.CultureInfo.InvariantCulture,
-            "{0:F1},{1},{2}", _elapsed, herb, carn);
-        _csv.AppendLine(line);
+            "{0:F1},{1},{2}", _elapsed, herb, carn );
+        _csv.AppendLine ( line );
     }
 
-    void SaveToFile()
+    void SaveToFile ()
     {
         try
         {
-            File.WriteAllText(_filePath, _csv.ToString());
-            Debug.Log("[PopulationLogger] Данные сохранены: " + _filePath);
+            File.WriteAllText ( _filePath, _csv.ToString ());
+            Debug.Log ( "[PopulationLogger] Данные сохранены: " + _filePath );
         }
-        catch (System.Exception e)
+        catch ( System.Exception e )
         {
-            Debug.LogError("[PopulationLogger] Ошибка сохранения: " + e.Message);
+            Debug.LogError ( "[PopulationLogger] Ошибка сохранения: " + e.Message );
         }
     }
 
-    void OnApplicationQuit()
+    void OnApplicationQuit ()
     {
-        SaveToFile();
+        SaveToFile ();
     }
 
-    void OnDisable()
+    void OnDisable ()
     {
-        SaveToFile();
+        SaveToFile ();
     }
 }

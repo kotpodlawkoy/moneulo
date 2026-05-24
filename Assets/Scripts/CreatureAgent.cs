@@ -3,21 +3,21 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 
-[RequireComponent(typeof(CellController))]
-[RequireComponent(typeof(BaseVisionController))]
-[RequireComponent(typeof(SignalComponent))]
+[ RequireComponent ( typeof ( CellController ) ) ]
+[ RequireComponent ( typeof ( BaseVisionController ) ) ]
+[ RequireComponent ( typeof ( SignalComponent ) ) ]
 public class CreatureAgent : Agent, IBrain
 {
-    [Header("Observation settings")]
-    [SerializeField] private int _alliesObserved = 3;
-    [SerializeField] private int _foodObserved = 3;
-    [SerializeField] private int _enemiesObserved = 3;
-    [SerializeField] private float _maxObsDistance = 10f;
-
-    [Header("Tags for classification")]
-    [SerializeField] private string _allySpeciesTag;
-    [SerializeField] private string _foodTagToWatch;
-    [SerializeField] private string _enemyTag;
+    [ Header ( "Observation settings" ) ]
+    [ SerializeField ] private int _alliesObserved = 3;
+    [ SerializeField ] private int _foodObserved = 3;
+    [ SerializeField ] private int _enemiesObserved = 3;
+    [ SerializeField ] private float _maxObsDistance = 10f;
+    
+    [ Header ( "Tags for classification" ) ]
+    [ SerializeField ] private string _allySpeciesTag;
+    [ SerializeField ] private string _foodTagToWatch;
+    [ SerializeField ] private string _enemyTag;
 
     private CellController _cell;
     private BaseVisionController _vision;
@@ -38,7 +38,7 @@ public class CreatureAgent : Agent, IBrain
     public override void CollectObservations ( VectorSensor sensor )
     {
         sensor.AddObservation ( _cell.Health.CurrentHp / Mathf.Max ( 1f, _cell.Health.MaxHp ) );
-        sensor.AddObservation ( _cell.Energy.CurrentEnergy / Mathf.Max(1f, _cell.Energy.MaxEnergy ) );
+        sensor.AddObservation ( _cell.Energy.CurrentEnergy / Mathf.Max ( 1f, _cell.Energy.MaxEnergy ) );
         sensor.AddObservation ( _selfSignal.Signal );
         float zRad = transform.eulerAngles.z * Mathf.Deg2Rad;
         sensor.AddObservation ( Mathf.Sin ( zRad ) );
@@ -53,7 +53,8 @@ public class CreatureAgent : Agent, IBrain
 
         foreach ( var t in _vision.GetVisibleTargets () )
         {
-            if ( t == null ) continue;
+            if ( t == null )
+                continue;
 
             Vector2 to = ( Vector2 ) t.transform.position - selfPos;
             float dist = to.magnitude;
@@ -100,37 +101,44 @@ public class CreatureAgent : Agent, IBrain
                 sensor.AddObservation ( Mathf.Clamp01 ( e.dist / _maxObsDistance ) );
                 float rad = e.angle * Mathf.Deg2Rad;
                 sensor.AddObservation ( Mathf.Sin ( rad ) );
-                sensor.AddObservation ( Mathf.Cos ( rad ) ) ;
+                sensor.AddObservation ( Mathf.Cos ( rad ) );
             }
-            else { sensor.AddObservation ( 1f ) ; sensor.AddObservation ( 0f ) ; sensor.AddObservation ( 0f ) ; }
+            else
+            {
+                sensor.AddObservation ( 1f ); sensor.AddObservation ( 0f ); sensor.AddObservation ( 0f );
+            }
         }
 
-        for ( int i = 0; i < _enemiesObserved; i++ ) 
+        for ( int i = 0; i < _enemiesObserved; i++ )
         {
-            if ( i < enemies.Count ) 
+            if ( i < enemies.Count )
             {
                 var e = enemies [ i ];
-                sensor.AddObservation ( Mathf.Clamp01 ( e.dist / _maxObsDistance) ) ;
+                sensor.AddObservation ( Mathf.Clamp01 ( e.dist / _maxObsDistance ) );
                 float rad = e.angle * Mathf.Deg2Rad;
-                sensor.AddObservation ( Mathf.Sin ( rad ) ) ;
-                sensor.AddObservation ( Mathf.Cos ( rad ) ) ;
+                sensor.AddObservation ( Mathf.Sin ( rad ) );
+                sensor.AddObservation ( Mathf.Cos ( rad ) );
             }
-            else { sensor.AddObservation ( 1f ) ; sensor.AddObservation ( 0f ) ; sensor.AddObservation ( 0f ) ; }
+            else
+            {
+                sensor.AddObservation ( 1f ); sensor.AddObservation ( 0f ); sensor.AddObservation ( 0f );
+            }
         }
     }
 
-    public override void OnActionReceived ( ActionBuffers actions ) 
+    public override void OnActionReceived ( ActionBuffers actions )
     {
-        float dx = Mathf.Clamp ( actions.ContinuousActions [ 0 ] , -1f, 1f ) ;
-        float dy = Mathf.Clamp ( actions.ContinuousActions [ 1 ] , -1f, 1f ) ;
-        float sig = ( Mathf.Clamp ( actions.ContinuousActions [ 2 ] , -1f, 1f ) + 1f ) * 0.5f;
+        float dx = Mathf.Clamp ( actions.ContinuousActions [ 0 ], -1f, 1f );
+        float dy = Mathf.Clamp ( actions.ContinuousActions [ 1 ], -1f, 1f );
+        float sig = ( Mathf.Clamp ( actions.ContinuousActions [ 2 ], -1f, 1f ) + 1f ) * 0.5f;
 
         bool run = actions.DiscreteActions [ 0 ] == 1;
         bool heal = actions.DiscreteActions [ 1 ] == 1;
         bool act = actions.DiscreteActions [ 2 ] == 1;
 
-        Vector2 move = new Vector2 ( dx, dy ) ;
-        if ( move.sqrMagnitude < 0.01f ) move = Vector2.zero;
+        Vector2 move = new Vector2 ( dx, dy );
+        if ( move.sqrMagnitude < 0.01f )
+            move = Vector2.zero;
 
         _lastAction = new CreatureAction
         {
@@ -143,24 +151,27 @@ public class CreatureAgent : Agent, IBrain
         };
     }
 
-    public CreatureAction Decide ( ) 
+    public CreatureAction Decide ( )
     {
         return _lastAction;
     }
 
-    public override void Heuristic ( in ActionBuffers actionsOut ) 
+    public override void Heuristic ( in ActionBuffers actionsOut )
     {
         var c = actionsOut.ContinuousActions;
-        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint ( Input.mousePosition ) ;
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint ( Input.mousePosition );
         Vector2 toMouse = ( Vector2 ) mouseWorld - ( Vector2 ) transform.position;
-        if ( toMouse.magnitude > 0.1f ) 
+        if ( toMouse.magnitude > 0.1f )
         {
-            if ( Input.GetKey ( KeyCode.W ) ) 
+            if ( Input.GetKey ( KeyCode.W ) )
             {
                 Vector2 n = toMouse.normalized;
                 c [ 0 ] = n.x; c [ 1 ] = n.y;
             }
-            else { c [ 0 ] = 0; c [ 1 ] = 0; }
+            else
+            {
+                c [ 0 ] = 0; c [ 1 ] = 0;
+            }
         }
         c [ 2 ] = Input.GetKey ( KeyCode.Q ) ? 1f : -1f;
 
@@ -170,18 +181,18 @@ public class CreatureAgent : Agent, IBrain
         d [ 2 ] = ( Input.GetKeyDown ( KeyCode.B ) || Input.GetKeyDown ( KeyCode.G ) ) ? 1 : 0;
     }
 
-    public void RewardAteFood ( float currentEnergy, float maxEnergy ) 
+    public void RewardAteFood ( float currentEnergy, float maxEnergy )
     {
-        AddReward ( 1f * ( 1f - currentEnergy / maxEnergy ) ) ;
+        AddReward ( 1f * ( 1f - currentEnergy / maxEnergy ) );
     }
-    public void RewardAttackedPrey () { AddReward ( 0.5f ) ; }
-    public void RewardBred () { AddReward ( 3.0f ) ; }
-    public void RewardGrew () { AddReward ( 1.5f ) ; }
+    public void RewardAttackedPrey () { AddReward ( 0.5f ); }
+    public void RewardBred () { AddReward ( 3.0f ); }
+    public void RewardGrew () { AddReward ( 1.5f ); }
     public void RewardTookDamage ( float dmg, float maxHp ) {}
 
-    void OnDiedHandler () 
+    void OnDiedHandler ()
     {
-        AddReward ( -10.0f ) ;
-        EndEpisode () ;
+        AddReward ( -10.0f );
+        EndEpisode ();
     }
 }
