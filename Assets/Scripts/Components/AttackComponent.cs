@@ -31,5 +31,6 @@ public class AttackComponent : MonoBehaviour, IAttacker
         target.GetComponent < HealthComponent > ().TakeDamage ( _attackDamage );
         _energy.SpendEnergy ( _attackEnergyCost, IEnergy.SpendMode.Forced, _health, _energyToHealthRatio );
         _lastAttackTime = Time.time;
+        GetComponent<CreatureAgent>()?.RewardAttackedPrey();
     }
 }

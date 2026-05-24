@@ -32,6 +32,7 @@ public class BreedComponent : MonoBehaviour, IBreeder
         _energy.SpendEnergy ( _breedEnergyCost, IEnergy.SpendMode.Forced, _health, _energyToHealthRatio );
         GameObject newCell = Instantiate ( _childCell, transform.position, transform.rotation );
         _lastBreedTime = Time.time;
+        GetComponent<CreatureAgent>()?.RewardBred();
         return newCell;
     }
 }

@@ -36,6 +36,7 @@ public class HealthComponent : MonoBehaviour, IHealth
     public void TakeDamage ( float damage )
     {
         _currentHp -= damage;
+        GetComponent<CreatureAgent>()?.RewardTookDamage(damage, MaxHp);
         if ( IsDead ) OnDeath?.Invoke ();
     }
 }

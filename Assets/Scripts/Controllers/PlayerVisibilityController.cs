@@ -1,5 +1,4 @@
 using UnityEngine;
-//using System.Collections.Generic;
 
 public class PlayerVisibilityController : BaseVisionController
 {
@@ -7,8 +6,6 @@ public class PlayerVisibilityController : BaseVisionController
 
     void OnGUI ()
     {
-        //Debug.Log("OnGUI is running");
-
         if ( !DebugShowVisibleTargets ) return;
 
         GUIStyle labelStyle = new GUIStyle ( GUI.skin.label );

@@ -16,10 +16,12 @@ public class CameraController : MonoBehaviour
 
         if (direction != Vector3.zero )
         {
-            gameObject.transform.position += direction * CameraSpeed;
+            gameObject.transform.position += direction * CameraSpeed * Time.deltaTime;
         }
 
         float cameraScroll = Input.GetAxis ( "Mouse ScrollWheel" );
-        Camera.main.orthographicSize += cameraScroll * CameraScrollingSpeed;
+        if ( Input.GetKey ( KeyCode.E ) ) Camera.main.orthographicSize -= CameraScrollingSpeed * Time.deltaTime;
+        if ( Input.GetKey ( KeyCode.Q ) ) Camera.main.orthographicSize += CameraScrollingSpeed * Time.deltaTime;
+        
     }
 }

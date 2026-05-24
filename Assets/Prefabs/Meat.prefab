@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1645741841946731089}
   - component: {fileID: 2782499040260209906}
   - component: {fileID: 2498944623414992651}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Meat
   m_TagString: Meat
   m_Icon: {fileID: 0}
@@ -37,6 +37,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1386436369506440957
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -82,6 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
+  m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0.4764151, b: 0.7634359, a: 1}
   m_FlipX: 0
@@ -91,7 +93,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &1645741841946731089
 Rigidbody2D:
@@ -170,3 +171,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FoodController
   _currentFoodAmount: 100
   maxFoodAmount: 100
+  TimeMeatToRot: 15

@@ -6,6 +6,7 @@ public interface IHealth
     float MaxHp { get; }
 
     bool IsDead { get; }
+    bool CanHeal { get; } 
     event Action OnDeath;
 
     void TakeDamage ( float damage );

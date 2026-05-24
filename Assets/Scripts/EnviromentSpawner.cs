@@ -8,12 +8,12 @@ public class EnviromentSpawner : MonoBehaviour
     public int wallAmount;
 
     public GameObject plantPrefab;
-    public int startAmount;
-    public int loopAmount;
+    public int targetAmount;
     public float loopCoolDown;
     public float xZone, yZone;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public static event System.Action WallsSpawned;
+
     void Start()
     {
         StartCoroutine ( SpawnManyWalls ( xZone, yZone, wallAmount, OnWallsSpawned ) );
@@ -49,17 +49,19 @@ public class EnviromentSpawner : MonoBehaviour
 
     void SpawnPlantsLoop ()
     {
-        SpawnManyPlants ( xZone, yZone, loopAmount );
+        int currentAmount = GameObject.FindGameObjectsWithTag ( "Plant" ).Length;
+        int loopAmount = targetAmount - currentAmount;
+        if ( loopAmount > 0 )
+        {
+            SpawnManyPlants ( xZone, yZone, loopAmount );
+        }
     }
 
     void SpawnManyPlants ( float x, float y, int amount )
     {
         for ( int i = 0; i < amount; i ++ )
         {
-            while ( !SpawnPlant ( x, y ) )
-            {
-                Debug.Log ( $"x = {x}, y = {y}" );
-            }
+            SpawnPlant ( x, y );
         }
     }
 
@@ -85,7 +87,8 @@ public class EnviromentSpawner : MonoBehaviour
 
     void OnWallsSpawned ()
     {
-        SpawnManyPlants ( xZone, yZone, startAmount );
+        SpawnManyPlants ( xZone, yZone, targetAmount );
         InvokeRepeating ( "SpawnPlantsLoop", loopCoolDown, loopCoolDown );
+        WallsSpawned?.Invoke();
     }
 }

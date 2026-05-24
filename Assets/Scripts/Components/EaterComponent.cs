@@ -30,5 +30,6 @@ public class EaterComponent : MonoBehaviour, IEater
         food.GetComponent < FoodController > ().GetEaten ( _eatAmount );
         _statusEffects.SetStatusEffect ( _eatSlowdown );
         _lastEatTime = Time.time;
+        GetComponent<CreatureAgent>()?.RewardAteFood( _energy.CurrentEnergy, _energy.MaxEnergy );
     } 
 }

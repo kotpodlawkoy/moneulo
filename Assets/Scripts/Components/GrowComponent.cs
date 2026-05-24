@@ -29,6 +29,7 @@ public class GrowComponent : MonoBehaviour, IGrowable
         GameObject grownCell = Instantiate ( _adultCell, transform.position, transform.rotation );
         StartCoroutine ( TransferState ( grownCell.GetComponent < CellController > () ) );
         _lastGrowTime = Time.time;
+        GetComponent<CreatureAgent>()?.RewardGrew();
         return grownCell;
     }
 
@@ -41,7 +42,7 @@ public class GrowComponent : MonoBehaviour, IGrowable
 
         otherHealth.TakeDamage  ( otherHealth.MaxHp * ( 1f - _health.CurrentHp / _health.MaxHp ) );
         otherEnergy.SpendEnergy ( otherEnergy.MaxEnergy * ( 1f - _energy.CurrentEnergy / _energy.MaxEnergy ), IEnergy.SpendMode.None );
-        Debug.LogError ( $"hp = {otherHealth.CurrentHp}, energy = {otherEnergy.CurrentEnergy}!" );
+        //Debug.LogError ( $"hp = {otherHealth.CurrentHp}, energy = {otherEnergy.CurrentEnergy}!" );
 
         Destroy ( gameObject );
     }

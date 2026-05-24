@@ -4,11 +4,16 @@ public class FoodController : MonoBehaviour
 {
     public float _currentFoodAmount;
     public float maxFoodAmount;
+    public float TimeMeatToRot;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         FoodAmount = maxFoodAmount;
+        if ( gameObject.tag == "Meat" )
+        {
+
+            Invoke ( nameof ( Die ), TimeMeatToRot );
+        }
     }
 
     public void GetEaten ( float eatAmount )

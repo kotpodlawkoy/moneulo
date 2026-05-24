@@ -21,7 +21,12 @@ GameObject:
   - component: {fileID: -7815134460635104594}
   - component: {fileID: 4656564724907667339}
   - component: {fileID: -1329915610130322726}
-  m_Layer: 0
+  - component: {fileID: 8597273946047551279}
+  - component: {fileID: 4525465417506800701}
+  - component: {fileID: -2298134013171726638}
+  - component: {fileID: -5619060691368599011}
+  - component: {fileID: -5132327239085694218}
+  m_Layer: 7
   m_Name: ChildCarnivore
   m_TagString: Carnivore
   m_Icon: {fileID: 0}
@@ -40,11 +45,13 @@ Transform:
   m_LocalPosition: {x: -3.02, y: -0.33591, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 3036001583107487694}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7619262288727376405
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -90,6 +97,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
+  m_MaskInteraction: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 0.7529412, g: 0, b: 0.083318375, a: 1}
   m_FlipX: 0
@@ -99,7 +107,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &3358777751708074947
 Rigidbody2D:
@@ -179,6 +186,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChildCellController
   meatPrefab: {fileID: 1815474429573255029, guid: 4ebfb61f9e26e2c4b96ac50a709dda89, type: 3}
   meatAmount: 1
+  _age: 0
+  DebugLogging: 0
+  CellId: 0
 --- !u!114 &4338956744410249751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,3 +316,202 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd99755b5fe333543b809c7a317f0b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SetOfStatusEffects
+  statusEffects: []
+--- !u!114 &8597273946047551279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2621175948272416675}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c720af27fcae25745ab3317d4f5a5109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SignalComponent
+  _signal: 0
+  _decayPerSecond: 1
+--- !u!114 &4525465417506800701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2621175948272416675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5fdf9d2f4c5b64dbc8f0a11f940e91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BaseVisionController
+  VisionRadius: 20
+  VisionAngle: 120
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  rayCount: 11
+  _showDebugGizmos: 1
+  gizmosColor: {r: 0, g: 0, b: 1, a: 1}
+--- !u!114 &-2298134013171726638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2621175948272416675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.ML-Agents::Unity.MLAgents.Policies.BehaviorParameters
+  m_BrainParameters:
+    VectorObservationSize: 35
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 3
+      BranchSizes: 020000000200000002000000
+    VectorActionSize: 
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 5022602860645237092, guid: 2d08eabd964c4cb45bfe5df6812e3218, type: 3}
+  m_InferenceDevice: 0
+  m_BehaviorType: 2
+  m_BehaviorName: ChildCarnivore
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_ObservableAttributeHandling: 0
+--- !u!114 &-5619060691368599011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2621175948272416675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a565011d152f74b44aa45ea51c54ca59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CreatureAgent
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  _alliesObserved: 3
+  _foodObserved: 3
+  _enemiesObserved: 3
+  _maxObsDistance: 10
+  _allySpeciesTag: Carnivore
+  _foodTagToWatch: Meat
+  _enemyTag: Herbivore
+--- !u!114 &-5132327239085694218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2621175948272416675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.ML-Agents::Unity.MLAgents.DecisionRequester
+  DecisionPeriod: 5
+  TakeActionsBetweenDecisions: 1
+--- !u!1001 &2858062092900806421
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7291942798712273834}
+    m_Modifications:
+    - target: {fileID: 12230139852002015, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_Name
+      value: StatsBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 452810436690459838, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: _target
+      value: 
+      objectReference: {fileID: 7291942798712273834}
+    - target: {fileID: 976132189818820827, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 976132189818820827, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 976132189818820827, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 976132189818820827, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976132189818820827, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976132189818820827, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976132189818820827, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 976132189818820827, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976132189818820827, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976132189818820827, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976132189818820827, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976132189818820827, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976132189818820827, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976132189818820827, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841470335417391062, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_Name
+      value: IconGrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681692822960057391, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 5655321678828108626, guid: 15ede3aaae3625a45b0798cc9f669d52, type: 3}
+    - target: {fileID: 6079144294486243175, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+      propertyPath: _icons.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+--- !u!4 &3036001583107487694 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 976132189818820827, guid: 0b5af32a5d463c2449de254e5115fc71, type: 3}
+  m_PrefabInstance: {fileID: 2858062092900806421}
+  m_PrefabAsset: {fileID: 0}
